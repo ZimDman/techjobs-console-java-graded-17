@@ -59,7 +59,7 @@ public class TechJobs {
 
                 // What is their search term?
                 System.out.println("\nSearch term:");
-                String searchTerm = in.nextLine();
+                String searchTerm = in.nextLine().toLowerCase();
 
                 if (searchField.equals("all")) {
                     printJobs(JobData.findByValue(searchTerm));
@@ -120,6 +120,23 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+//        System.out.println("printJobs is not implemented yet");
+
+        if (!someJobs.isEmpty()) {
+            //Using a loop to iterate over Array of HashMap Objects (Jobs)
+            for (HashMap<String, String> aJob : someJobs) {
+                System.out.println("\n*****");
+                // Then nest a for-each loop to iterate over the Hashmap Objects
+                for(Map.Entry<String, String> data: aJob.entrySet()) {
+                    System.out.println(data.getKey() + ": " + data.getValue());
+                }
+                System.out.println("*****");
+            }
+        } else {
+            // Use print instead of println so that a new line is not printed after No Results to match the test output
+            System.out.print("No Results");
+        }
+
+
     }
 }
