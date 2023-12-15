@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
+import java.util.Collections;
 
 /**
  * Created by LaunchCode
@@ -36,6 +37,7 @@ public class JobData {
 
             if (!values.contains(aValue)) {
                 values.add(aValue);
+                Collections.sort(values);
             }
         }
 
@@ -74,6 +76,7 @@ public class JobData {
 
             if (aValue.toLowerCase().contains(value)) {
                 jobs.add(row);
+
             }
         }
 
@@ -91,20 +94,24 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        // TODO - implement this method
+
         ArrayList<HashMap<String, String>> field = JobData.findAll();
         ArrayList<HashMap<String, String>> searchedMatches = new ArrayList<>();
 
-        for (HashMap<String, String> row: field) {
-            for (Map.Entry<String, String> column: row.entrySet()) {
-                if (column.getValue().toLowerCase().contains(value)) {
+        for (HashMap<String, String> tier: field) {
+            for (Map.Entry<String, String> range: tier.entrySet()) {
+                if (range.getValue().toLowerCase().contains(value)) {
 
-                    searchedMatches.add(row);
+                    searchedMatches.add(tier);
+
                 }
             }
         }
-        // TODO - implement this method
+
         return searchedMatches;
 
+        // first attempt couldn't get to work.
 
        /* ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
@@ -113,7 +120,7 @@ public class JobData {
             for (Map.Entry<String, String> column : row.entrySet()) {
 
                 String a = column.getKey().toLowerCase();
-                String b = column.getKey().toLowerCase();
+                String b = column.getValue().toLowerCase();
 
                 if(a.contains(value) || b.contains(value)) {
                     jobs.add(row);
